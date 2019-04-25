@@ -102,3 +102,4 @@ def fcases_pleines(grille):
 
 
 
+
