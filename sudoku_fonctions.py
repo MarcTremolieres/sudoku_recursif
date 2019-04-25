@@ -101,11 +101,4 @@ def fcases_pleines(grille):
     return cases_pleines
 
 
-def affiche_candidats(grille):
-    liste_candidats = []
-    for index in range(81):
-        liste_candidats.append(len(list({1,2,3,4,5,6,7,8,9} - set(calcule_candidats(grille, index)))))
-    affiche(liste_candidats)
-
-
 
