@@ -17,8 +17,8 @@ def affiche(grille):
 
 
 def interdit_rangees(index, grille):
-    interdit_ligne = {grille[index2] for index2 in range(81) if ((index2 // 9) == (index // 9)) and (grille[index2] != 0)}
-    interdit_colon = {grille[index2] for index2 in range(81) if ((index2 % 9) == (index %9)) and (grille[index2] != 0)}
+    interdit_ligne = {grille[index2] for index2 in range(81) if (index2 // 9) == (index // 9)}
+    interdit_colon = {grille[index2] for index2 in range(81) if (index2 % 9) == (index %9)}
     interdit = interdit_ligne.union(interdit_colon)
     return interdit
 
@@ -48,23 +48,6 @@ def calcule_candidats(grille, index, forbiden):
     return candidats
 
 
-def add_element(grille, untrieds, index, candidats):
-    grille[index] = choice(list(candidats))
-    untrieds[index] -= {grille[index]}
-
-
-def locate_min_candidats(grille, forbiden):
-    minimum = 9
-    index_min = 0
-    for index in range(81):
-        if grille[index] == 0:
-            candidats = calcule_candidats(grille, index, forbiden)
-            nb_candidats = len(candidats)
-            if nb_candidats < minimum:
-                minimum = nb_candidats
-                index_min = index
-    return minimum, index_min
-
 def recursif_brut_solve(grille, forbiden = [0, 0]):
     try :
         index_case = grille.index(0)
@@ -82,34 +65,6 @@ def recursif_brut_solve(grille, forbiden = [0, 0]):
     except :
         return True
 
-
-
-def resolve(grille, forbiden = [0,0]):
-    case_interdite = forbiden[0]
-    valeur_interdite = forbiden[1]
-    cases_vides = [index for index in range(81) if grille[index] == 0]
-    untrieds = []
-    nombre_de_cases = len(cases_vides)
-    for index in range(81):
-        untrieds.append({1,2,3,4,5,6,7,8,9})
-    index = 0
-    while index < nombre_de_cases:
-        index_case = cases_vides[index]
-        candidats = untrieds[index_case]-conflits(grille, index_case)
-        if index_case == case_interdite:
-            candidats -= {valeur_interdite}
-        if candidats == set():
-            if index == 0:
-                return False
-            else:
-                untrieds[index_case] = {1,2,3,4,5,6,7,8,9}
-                grille[index_case] = 0
-            index = index-1
-            untrieds[index_case] =untrieds[index_case]- {grille[index_case]}
-        else:
-            add_element(grille, untrieds, index_case, candidats)
-            index += 1
-    return True
 
 
 def remove_random_element(grille):
