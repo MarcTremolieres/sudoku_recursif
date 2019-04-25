@@ -60,11 +60,11 @@ def recursif_brut_solve(grille, forbiden = [0, 0]):
         if not candidats:
             return False    #Grille impossible
         while candidats:
-            valeur = choice(list(candidats))
+            valeur = choice(list(candidats))    #Essaye un candidat
             grille[index_case] = valeur
             if recursif_brut_solve(grille, forbiden):
-                return True #On a trouvé une solution
-            candidats -= {valeur}  #On épuise les candidats
+                return True #Grille résolue
+            candidats -= {valeur}  #Epuisement des candidats
         grille[index_case] = 0  #Plus de candidat : on revient en arrière en remettant la grille dans l'état initial
         return False
     except :
